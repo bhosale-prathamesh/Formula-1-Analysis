@@ -7,3 +7,9 @@ def home(request):
 
 def pitstop_analysis(request):
     return render(request,'pitstop_analysis.html')
+
+def circuit_analysis(request):
+    return render(request,'circuit_analysis.html')
+
+def season_analysis(request):
+    return render(request,'season_analysis.html')
