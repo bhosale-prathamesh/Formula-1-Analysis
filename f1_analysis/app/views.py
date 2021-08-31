@@ -17,7 +17,7 @@ def pitstop_analysis(request):
     circuits_data = pd.read_csv('Data\circuits.csv')
     pitstop_data = pd.merge(circuits_data,pitstop_data,on='circuitId',how='outer').dropna().reset_index()
     pitstop_data = pitstop_data[['name','milliseconds']]
-    fig = px.bar(pitstop_data,x='name',y='milliseconds',
+    fig = px.bar(pitstop_data,x='name',y='milliseconds',width=1280, height = 720,
                  labels=dict(name='Circuit Name',milliseconds='Average Pitstop Time (ms)'))
     
     graph = fig.to_html(full_html=False, default_height=500, default_width=700)
