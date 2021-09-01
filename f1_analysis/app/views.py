@@ -28,4 +28,10 @@ def circuit_analysis(request):
     return render(request,'circuit_analysis.html')
 
 def season_analysis(request):
-    return render(request,'season_analysis.html')
+    year='2011'
+    type='Drivers'
+    if (request.method == 'POST'):
+        year = request.POST.get('year')
+        type = request.POST.get('type')
+    context= {'y':year,'t':type}
+    return render(request,'season_analysis.html',context)
