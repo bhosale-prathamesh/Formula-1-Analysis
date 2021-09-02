@@ -1,0 +1,1 @@
+{'Red Bull': {'color': '#004c6c'}, 'Renault': {'color': '#FFF500'}, 'McLaren': {'color': '#FF8700'}, 'Ferrari': {'color': '#C00000'}, 'Mercedes': {'color': '#00D2BE'}, 'Williams': {'color': '#0082FA'}, 'Toro Rosso': {'color': '#011AE3'}, 'Racing Point': {'color': '#F596C8'}, 'Haas F1 Team': {'color': '#ed1a3b'}, 'Alfa Romeo': {'color': '#960000'}}

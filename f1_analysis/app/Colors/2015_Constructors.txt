@@ -1,0 +1,1 @@
+{'Red Bull': {'color': '#004c6c'}, 'McLaren': {'color': '#FF8700'}, 'Ferrari': {'color': '#C00000'}, 'Mercedes': {'color': '#00D2BE'}, 'Manor Marussia': {'color': '#6E0000'}, 'Williams': {'color': '#0082FA'}, 'Toro Rosso': {'color': '#011AE3'}, 'Force India': {'color': '#F596C8'}, 'Lotus F1': {'color': '#000000'}, 'Sauber': {'color': '#960000'}}
