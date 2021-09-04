@@ -27,7 +27,19 @@ def pitstop_analysis(request):
     return render(request,'pitstop_analysis.html',context)
 
 def circuit_analysis(request):
-    return render(request,'circuit_analysis.html')
+    circuits_data = pd.read_csv('Data\circuits.csv')
+    races_data = pd.read_csv(r'Data\races.csv')
+    circuits_data['count'] = [(races_data['circuitId']==i).sum() for i in circuits_data['circuitId']]
+    fig = px.scatter_geo(data_frame=circuits_data,
+                         lat='lat',
+                         lon='lng',
+                         hover_name="name",
+                         hover_data=['location','country'],
+                         color='count',
+                         opacity=0.75)
+    graph = fig.to_html(full_html=False, default_height=500, default_width=700)
+    context = {'graph': graph}
+    return render(request,'circuit_analysis.html',context)
 
 def season_analysis(request):
     year='2011'

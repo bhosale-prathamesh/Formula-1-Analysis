@@ -24,6 +24,14 @@
   <h2>Circuit Analysis</h2>
 </div>
 
+<div style="padding-left:16px" class="resizable-content">
+  {% if graph %}
+  {{ graph|safe }}
+  {% else %}
+  <p>No graph was provided.</p>
+  {% endif %}
+</div>
+
 <script>
 function myFunction() {
   var x = document.getElementById("myTopnav");
