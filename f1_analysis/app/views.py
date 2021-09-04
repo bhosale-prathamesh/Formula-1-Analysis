@@ -64,7 +64,7 @@ def season_graph(year,type):
     constructors_data.drop(columns=['url'],inplace=True)
     constructors_data.rename(columns={'name':'constructor_name','nationality':'constructor_nationality'},inplace=True)
     
-    data_c = races_data.where(races_data['year']==2011).dropna()
+    data_c = races_data.where(races_data['year']==int(year)).dropna()
     data_c =     data_c.merge(constructorstanding_data,on='raceId').dropna()
     data_c =     data_c.merge(constructors_data,on='constructorId').dropna()
     data_c.drop(columns=['date','time','url','constructorStandingsId','constructorId','constructor_nationality','raceId'],inplace=True)
@@ -123,8 +123,8 @@ def season_graph(year,type):
         graph3 = fig3.to_html(full_html=False, default_height=500, default_width=700)
         
     elif (type == 'Constructors'):
-        
-        f = open('colors/'+year+'_Constructors.txt','r')
+        file_path = os.path.join(module_dir,'Colors\\'+ year+'_Constructors.txt')
+        f = open(file_path,'r')
         d = f.read()
         color_c =  eval(d)
         c = data_c.groupby(by='constructor_name').max().sort_values('points',ascending=False)
@@ -132,9 +132,29 @@ def season_graph(year,type):
         c = c['Final']
         data_c = data_c.merge(c,on='constructor_name').sort_values(['round','Final'])
 
-        fig3 = px.bar(data_c, x="constructor_name", y="points",color='constructor_name',
+        fig1 = px.bar(data_c, x="constructor_name", y="points",color='constructor_name',
             animation_frame="name", animation_group="constructor_name", range_y=[0,650])
-        graph1 = fig3.to_html(full_html=False, default_height=500, default_width=700)
-    
+        graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
+
+        fig2 = go.Figure()
+        fig3 = go.Figure()
+
+        for i in constructors:
+            d = data_c.where(data_c['constructor_name'] == i).dropna()
+            
+            fig2.add_trace(go.Scatter(x=d['name'],
+                                    y=d['points'],
+                                    name=i,
+                                    mode='lines+markers',
+                                    marker=dict(color=color_c[i]['color'],opacity=0.75)))
+            
+            fig3.add_trace(go.Scatter(x=d['name'],
+                                    y=d['position'],
+                                    name=i,
+                                    mode='lines+markers',
+                                    hovertext=d.points,
+                                    marker=dict(color=color_c[i]['color'],opacity=0.75)))
+        graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
+        graph3 = fig3.to_html(full_html=False, default_height=500, default_width=700)
     return graph1,graph2,graph3
 
