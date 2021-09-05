@@ -30,15 +30,21 @@ def circuit_analysis(request):
     circuits_data = pd.read_csv('Data\circuits.csv')
     races_data = pd.read_csv(r'Data\races.csv')
     circuits_data['count'] = [(races_data['circuitId']==i).sum() for i in circuits_data['circuitId']]
-    fig = px.scatter_geo(data_frame=circuits_data,
+    fig1 = px.scatter_geo(data_frame=circuits_data,
                          lat='lat',
                          lon='lng',
                          hover_name="name",
                          hover_data=['location','country'],
                          color='count',
                          opacity=0.75)
-    graph = fig.to_html(full_html=False, default_height=500, default_width=700)
-    context = {'graph': graph}
+    fig1.update_geos(showcountries=True)
+    graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
+    num_races = pd.DataFrame(races_data['year'].value_counts().sort_index())
+    num_races = num_races.reset_index()
+    num_races.columns = ['Year','Races']
+    fig2 = px.line(num_races,x='Year',y='Races')
+    graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
+    context = {'graph1': graph1,'graph2':graph2}
     return render(request,'circuit_analysis.html',context)
 
 def season_analysis(request):

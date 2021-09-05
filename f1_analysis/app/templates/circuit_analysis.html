@@ -25,8 +25,16 @@
 </div>
 
 <div style="padding-left:16px" class="resizable-content">
-  {% if graph %}
-  {{ graph|safe }}
+  {% if graph1 %}
+  {{ graph1|safe }}
+  {% else %}
+  <p>No graph was provided.</p>
+  {% endif %}
+</div>
+
+<div style="padding-left:16px" class="resizable-content">
+  {% if graph2 %}
+  {{ graph2|safe }}
   {% else %}
   <p>No graph was provided.</p>
   {% endif %}
