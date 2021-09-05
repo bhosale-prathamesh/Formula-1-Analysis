@@ -37,7 +37,7 @@ def circuit_analysis(request):
                          hover_data=['location','country'],
                          color='count',
                          opacity=0.75)
-    fig1.update_geos(showcountries=True)
+    fig1.update_geos(showcountries=True,resolution=110)
     graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
     num_races = pd.DataFrame(races_data['year'].value_counts().sort_index())
     num_races = num_races.reset_index()
