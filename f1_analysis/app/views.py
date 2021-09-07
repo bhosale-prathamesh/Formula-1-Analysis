@@ -141,11 +141,11 @@ def season_graph(year,type):
         data_c = data_c.merge(c,on='constructor_name').sort_values(['round','Final'])
 
         fig1 = px.bar(data_c, x="constructor_name", y="points",color='constructor_name',
-            animation_frame="name", animation_group="constructor_name", range_y=[0,650])
+            animation_frame="name", animation_group="constructor_name", range_y=[0,650],width=1280, height = 720)
         graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
 
-        fig2 = go.Figure()
-        fig3 = go.Figure()
+        fig2 = go.Figure(layout=dict(width=1280, height = 720))
+        fig3 = go.Figure(layout=dict(width=1280, height = 720))
 
         for i in constructors:
             d = data_c.where(data_c['constructor_name'] == i).dropna()
