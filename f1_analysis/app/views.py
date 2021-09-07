@@ -38,13 +38,13 @@ def circuit_analysis(request):
                          color='count',
                          color_continuous_scale=px.colors.sequential.Viridis,
                          opacity=0.75,
-                         size='count')
+                         size='count',width=1280, height = 720)
     fig1.update_geos(showcountries=True,resolution=110)
     graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
     num_races = pd.DataFrame(races_data['year'].value_counts().sort_index())
     num_races = num_races.reset_index()
     num_races.columns = ['Year','Races']
-    fig2 = px.line(num_races,x='Year',y='Races')
+    fig2 = px.line(num_races,x='Year',y='Races',width=1280, height = 720)
     graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
     context = {'graph1': graph1,'graph2':graph2}
     return render(request,'circuit_analysis.html',context)
@@ -102,11 +102,11 @@ def season_graph(year,type):
         c = c['Final']
         data_d = data_d.merge(c,on='code').sort_values(['round','Final'])
         fig1 = px.bar(data_d, x="code", y="points", color='constructorRef',
-        animation_frame="name", animation_group="code", range_y=[0,400])
+        animation_frame="name", animation_group="code", range_y=[0,400],width=1280, height = 720)
         graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
 
-        fig2 = go.Figure()
-        fig3 = go.Figure()
+        fig2 = go.Figure(layout=dict(width=1280, height = 720))
+        fig3 = go.Figure(layout=dict(width=1280, height = 720))
 
         for i in drivers:
             d = data_d.where(data_d['code'] == i).dropna()
@@ -165,4 +165,3 @@ def season_graph(year,type):
         graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
         graph3 = fig3.to_html(full_html=False, default_height=500, default_width=700)
     return graph1,graph2,graph3
-
