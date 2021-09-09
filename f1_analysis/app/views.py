@@ -20,7 +20,6 @@ def pitstop_analysis(request):
 
 def circuit_analysis(request):
     circuits_data = pd.read_csv('Data\circuits_m.csv')
-    circuits_data.to_csv('ciruits_m.csv')
     fig1 = px.scatter_geo(data_frame=circuits_data,
                          lat='lat',
                          lon='lng',
