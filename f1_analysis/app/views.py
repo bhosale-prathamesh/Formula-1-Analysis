@@ -19,9 +19,8 @@ def pitstop_analysis(request):
     return render(request,'pitstop_analysis.html',context)
 
 def circuit_analysis(request):
-    circuits_data = pd.read_csv('Data\circuits.csv')
-    races_data = pd.read_csv(r'Data\races.csv')
-    circuits_data['count'] = [(races_data['circuitId']==i).sum() for i in circuits_data['circuitId']]
+    circuits_data = pd.read_csv('Data\circuits_m.csv')
+    circuits_data.to_csv('ciruits_m.csv')
     fig1 = px.scatter_geo(data_frame=circuits_data,
                          lat='lat',
                          lon='lng',
@@ -33,9 +32,7 @@ def circuit_analysis(request):
                          size='count',width=1280, height = 720)
     fig1.update_geos(showcountries=True,resolution=110)
     graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
-    num_races = pd.DataFrame(races_data['year'].value_counts().sort_index())
-    num_races = num_races.reset_index()
-    num_races.columns = ['Year','Races']
+    num_races = pd.read_csv(r'Data\num_races.csv')
     fig2 = px.line(num_races,x='Year',y='Races',width=1280, height = 720)
     graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
     context = {'graph1': graph1,'graph2':graph2}
