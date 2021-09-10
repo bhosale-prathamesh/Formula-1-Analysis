@@ -11,10 +11,11 @@ def home(request):
 
 def pitstop_analysis(request):
     pitstop_data = pd.read_csv('Data\Average_Pitstop.csv')
-    fig = px.bar(pitstop_data,x='name',y='milliseconds',width=1280, height = 720,
-                 labels=dict(name='Circuit Name',milliseconds='Average Pitstop Time (ms)'))
+    fig = px.bar(pitstop_data,x='name',y='milliseconds',
+                 labels=dict(name='Circuits',milliseconds='Average Pitstop Time (ms)'))
     fig.update_traces(marker=dict(color= '#646cff'))
-    graph = fig.to_html(full_html=False, default_height=500, default_width=700)
+    fig.update_xaxes(showticklabels=False)
+    graph = fig.to_html(full_html=False)
     context = {'graph': graph}
     return render(request,'pitstop_analysis.html',context)
 
