@@ -29,12 +29,12 @@ def circuit_analysis(request):
                          color='count',
                          color_continuous_scale=px.colors.sequential.Viridis,
                          opacity=0.75,
-                         size='count',width=1280, height = 720)
+                         size='count')
     fig1.update_geos(showcountries=True,resolution=110)
-    graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
+    graph1 = fig1.to_html(full_html=False)
     num_races = pd.read_csv(r'Data\num_races.csv')
-    fig2 = px.line(num_races,x='Year',y='Races',width=1280, height = 720)
-    graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
+    fig2 = px.line(num_races,x='Year',y='Races')
+    graph2 = fig2.to_html(full_html=False)
     context = {'graph1': graph1,'graph2':graph2}
     return render(request,'circuit_analysis.html',context)
 
@@ -46,7 +46,7 @@ def season_analysis(request):
         year = request.POST.get('year')
         type = request.POST.get('type')
         graph1, graph2, graph3 = season_graph(year,type)
-    context= {'y':year,'t':type,'graph1':graph1,'graph2':graph2,'graph3':graph3}
+    context= {'graph1':graph1,'graph2':graph2,'graph3':graph3}
     return render(request,'season_analysis.html',context)
 
 def season_graph(year,type):
@@ -91,11 +91,11 @@ def season_graph(year,type):
         c = c['Final']
         data_d = data_d.merge(c,on='code').sort_values(['round','Final'])
         fig1 = px.bar(data_d, x="code", y="points", color='constructorRef',
-        animation_frame="name", animation_group="code", range_y=[0,400],width=1280, height = 720)
-        graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
+        animation_frame="name", animation_group="code", range_y=[0,400])
+        graph1 = fig1.to_html(full_html=False,auto_play=False)
 
-        fig2 = go.Figure(layout=dict(width=1280, height = 720))
-        fig3 = go.Figure(layout=dict(width=1280, height = 720))
+        fig2 = go.Figure()
+        fig3 = go.Figure()
 
         for i in drivers:
             d = data_d.where(data_d['code'] == i).dropna()
@@ -116,8 +116,8 @@ def season_graph(year,type):
                                     marker=dict(color=color_d[i]['color'],
                                                 opacity=0.75),
                                     line=dict(dash=color_d[i]['dash'])))
-        graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
-        graph3 = fig3.to_html(full_html=False, default_height=500, default_width=700)
+        graph2 = fig2.to_html(full_html=False)
+        graph3 = fig3.to_html(full_html=False)
         
     elif (type == 'Constructors'):
         file_path = os.path.join(module_dir,'Colors\\'+ year+'_Constructors.txt')
@@ -130,11 +130,11 @@ def season_graph(year,type):
         data_c = data_c.merge(c,on='constructor_name').sort_values(['round','Final'])
 
         fig1 = px.bar(data_c, x="constructor_name", y="points",color='constructor_name',
-            animation_frame="name", animation_group="constructor_name", range_y=[0,650],width=1280, height = 720)
-        graph1 = fig1.to_html(full_html=False, default_height=500, default_width=700)
+            animation_frame="name", animation_group="constructor_name", range_y=[0,650])
+        graph1 = fig1.to_html(full_html=False,auto_play=False)
 
-        fig2 = go.Figure(layout=dict(width=1280, height = 720))
-        fig3 = go.Figure(layout=dict(width=1280, height = 720))
+        fig2 = go.Figure()
+        fig3 = go.Figure()
 
         for i in constructors:
             d = data_c.where(data_c['constructor_name'] == i).dropna()
@@ -151,6 +151,6 @@ def season_graph(year,type):
                                     mode='lines+markers',
                                     hovertext=d.points,
                                     marker=dict(color=color_c[i]['color'],opacity=0.75)))
-        graph2 = fig2.to_html(full_html=False, default_height=500, default_width=700)
-        graph3 = fig3.to_html(full_html=False, default_height=500, default_width=700)
+        graph2 = fig2.to_html(full_html=False)
+        graph3 = fig3.to_html(full_html=False)
     return graph1,graph2,graph3
