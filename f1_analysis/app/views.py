@@ -46,7 +46,7 @@ def season_analysis(request):
         year = request.POST.get('year')
         type = request.POST.get('type')
         graph1, graph2, graph3, data = season_graph(year,type)
-    context= {'graph1':graph1,'graph2':graph2,'graph3':graph3,'data':data}
+    context= {'graph1':graph1,'graph2':graph2,'graph3':graph3,'data':data,'y':year}
     return render(request,'season_analysis.html',context)
 
 def season_graph(year,type):
@@ -90,7 +90,9 @@ def season_graph(year,type):
         c['Final'] = range(1,len(c['year'])+1)
         c = c['Final']
         data_d = data_d.merge(c,on='code').sort_values(['round','Final'])
-        data = data_d[data_d['round'] == data_d['round'].max()].drop(columns=['year','round','circuitId','name','position','positionText','driverRef','constructorId','number','quali_position','q1','q2','q3','constructorRef','constructor_nationality'])
+        data = data_d.sort_values('points',ascending=False).drop_duplicates(['driverRef']).set_index('Final')
+        data = data.sort_index()
+        data = data[['code','forename','surname','points','constructor_name','wins']]
         fig1 = px.bar(data_d, x="code", y="points", color='constructorRef',
         animation_frame="name", animation_group="code", range_y=[0,400])
         graph1 = fig1.to_html(full_html=False,auto_play=False)
@@ -129,7 +131,9 @@ def season_graph(year,type):
         c['Final'] = range(1,len(c['year'])+1)
         c = c['Final']
         data_c = data_c.merge(c,on='constructor_name').sort_values(['round','Final'])
-        data = data_c[data_c['round'] == data_c['round'].max()]
+        data = data_c.sort_values('points',ascending=False).drop_duplicates(['constructor_name']).set_index('Final')
+        data = data.sort_index()
+        data = data[['constructor_name','points','wins']]
         fig1 = px.bar(data_c, x="constructor_name", y="points",color='constructor_name',
             animation_frame="name", animation_group="constructor_name", range_y=[0,650])
         graph1 = fig1.to_html(full_html=False,auto_play=False)
