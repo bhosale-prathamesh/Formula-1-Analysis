@@ -1,0 +1,26 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+#footer {
+  padding: 0 0 4rem 0;
+  text-align: center;
+  background-color: var(--dk-gray-200);
+  color: black;
+  border-radius: 4vh 4vh 0 0;
+}
+#footer .copyright {
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  font-family: "futura-pt", Helvetica, Arial, sans-serif;
+  color: black;
+}
+
+#footer .copyright .label {
+  float: left;
+  width: 3.9375rem;
+  height: auto;
+  color: black;
+}
+
+.social li {
+  display: inline-block;
+  margin: 0.5em;
+}

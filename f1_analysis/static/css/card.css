@@ -1,0 +1,163 @@
+.abs,
+h2:after,
+.cards .card figcaption,
+.cards .card:after,
+.movie-card .card figcaption,
+.movie-card .card:after,
+.movie-card .article figcaption {
+  position: absolute;
+}
+.rel,
+h2,
+h2 strong,
+.cards .card,
+.movie-card .card,
+.movie-card .article {
+  position: relative;
+}
+.fix {
+  position: fixed;
+}
+.dfix {
+  display: inline;
+}
+.dib {
+  display: inline-block;
+}
+.db {
+  display: block;
+}
+.dn {
+  display: none;
+}
+.df,
+.cards,
+.movie-card {
+  display: flex;
+}
+.dif {
+  display: inline-flex;
+}
+.dg {
+  display: grid;
+}
+.dig {
+  display: inline-grid;
+}
+.vm,
+h2,
+h2 strong,
+h2 span {
+  vertical-align: middle;
+}
+.cards,
+.movie-card {
+  flex-flow: row wrap;
+}
+.cards .card,
+.movie-card .card {
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+  transform-origin: center top;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transition: 0.3s;
+}
+.cards .card img,
+.movie-card .card img {
+  width: 100%;
+  min-height: 100%;
+}
+.cards .card figcaption,
+.movie-card .card figcaption {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  font-size: 20px;
+  background: none;
+  color: #fff;
+  transform: translateY(100%);
+  transition: 0.3s;
+}
+.cards .card:after,
+.movie-card .card:after {
+  content: "";
+  z-index: 10;
+  width: 200%;
+  height: 100%;
+  top: -90%;
+  left: -20px;
+  opacity: 0.1;
+  transform: rotate(45deg);
+  background: linear-gradient(
+    to top,
+    transparent,
+    #fff 15%,
+    rgba(255, 255, 255, 0.5)
+  );
+  transition: 0.3s;
+}
+.cards .card:hover figcaption,
+.movie-card .card:hover figcaption,
+.cards .card:focus figcaption,
+.movie-card .card:focus figcaption,
+.cards .card:active figcaption,
+.movie-card .card:active figcaption {
+  transform: none;
+}
+.cards .card:hover:after,
+.movie-card .card:hover:after,
+.cards .card:focus:after,
+.movie-card .card:focus:after,
+.cards .card:active:after,
+.movie-card .card:active:after {
+  transform: rotate(25deg);
+  top: -40%;
+  opacity: 0.15;
+}
+.movie-card .article {
+  overflow: hidden;
+  width: 300px;
+  height: 180px;
+  margin-right: 0px;
+  margin-left: 5px;
+  border-radius: 4vh;
+}
+.movie-card .article img {
+  width: 100%;
+  min-height: 100%;
+  transition: 0.2s;
+  border-radius: 4vh;
+}
+.movie-card .article figcaption {
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(51, 51, 51, 0.3);
+  color: #fff;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  background: #15151591;
+  opacity: 0;
+  transform: scale(1.15);
+  transition: 0.2s;
+}
+.movie-card .article figcaption h3 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+.movie-card .article:hover img,
+.movie-card .article:focus img,
+.movie-card .article:active img {
+  filter: blur(3px);
+  transform: scale(0.97);
+}
+.movie-card .article:hover figcaption,
+.movie-card .article:focus figcaption,
+.movie-card .article:active figcaption {
+  opacity: 1;
+  transform: none;
+}

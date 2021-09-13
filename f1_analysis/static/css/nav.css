@@ -1,0 +1,54 @@
+.navbar {
+  position: fixed;
+  top: 1;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  border-radius: 4vh 4vh 0 0;
+  background-color: var(--dk-gray-200);
+}
+.navbar-menu {
+  display: flex;
+  flex-grow: 1;
+  height: 60px;
+  border-radius: 4vh 4vh 0 0;
+  overflow: hidden;
+}
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-decoration: none;
+}
+.menu-item:focus,
+.menu-item:hover {
+  outline: none;
+}
+.menu-item:focus .material-icons,
+.menu-item:hover .material-icons {
+  font-family: "Material Icons";
+  color: #b61818;
+}
+.menu-item:focus .menu-item-label,
+.menu-item:hover .menu-item-label {
+  color: #b61818;
+}
+.material-icons {
+  font-family: "Material Icons Outlined";
+  display: block;
+  margin-bottom: 0;
+  font-size: 10px;
+  color: #252636;
+  transition: 0.25s ease;
+}
+.menu-item-label {
+  display: block;
+  font-size: 13px;
+  color: #252636;
+  transition: 0.25s ease;
+}
