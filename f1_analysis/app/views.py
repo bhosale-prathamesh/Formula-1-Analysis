@@ -46,7 +46,7 @@ def season_analysis(request):
         year = request.POST.get('year')
         type = request.POST.get('type')
         graph1, graph2, graph3, data = season_graph(year,type)
-    context= {'graph1':graph1,'graph2':graph2,'graph3':graph3,'data':data,'y':year}
+    context= {'graph1':graph1,'graph2':graph2,'graph3':graph3,'data':data,'y':year,'t':type}
     return render(request,'season_analysis.html',context)
 
 def season_graph(year,type):
