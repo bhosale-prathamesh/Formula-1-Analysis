@@ -158,5 +158,6 @@ def season_graph(year,type):
                                     marker=dict(color=color_c[i]['color'],opacity=0.75)))
         graph2 = fig2.to_html(full_html=False)
         graph3 = fig3.to_html(full_html=False)
-    data = data.to_html(classes='styled-table')
+    data.reset_index(drop=False,inplace=True)
+    data = data.to_html(classes='styled-table',index=False)
     return graph1,graph2,graph3,data
