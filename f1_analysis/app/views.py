@@ -92,7 +92,13 @@ def season_graph(year,type):
         data_d = data_d.merge(c,on='code').sort_values(['round','Final'])
         data = data_d.sort_values('points',ascending=False).drop_duplicates(['driverRef']).set_index('Final')
         data = data.sort_index()
-        data = data[['code','forename','surname','points','constructor_name','wins']]
+        data['name'] = data['forename'] + ' ' + data['surname']
+        data = data[['code','name','points','constructor_name','wins']]
+        data.rename(columns={'code':'Driver Code',
+                             'name':'Driver Name',
+                             'points':'Points',
+                             'constructor_name':'Constructor',
+                             'wins':'Wins'},inplace=True) 
         fig1 = px.bar(data_d, x="code", y="points", color='constructorRef',
         animation_frame="name", animation_group="code", range_y=[0,400])
         graph1 = fig1.to_html(full_html=False,auto_play=False)
@@ -134,6 +140,9 @@ def season_graph(year,type):
         data = data_c.sort_values('points',ascending=False).drop_duplicates(['constructor_name']).set_index('Final')
         data = data.sort_index()
         data = data[['constructor_name','points','wins']]
+        data.rename(columns={'points':'Points',
+                             'constructor_name':'Constructor',
+                             'wins':'Wins'},inplace=True) 
         fig1 = px.bar(data_c, x="constructor_name", y="points",color='constructor_name',
             animation_frame="name", animation_group="constructor_name", range_y=[0,650])
         graph1 = fig1.to_html(full_html=False,auto_play=False)
