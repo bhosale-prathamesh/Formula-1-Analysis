@@ -12,9 +12,10 @@ def home(request):
 def pitstop_analysis(request):
     pitstop_data = pd.read_csv('Data\Average_Pitstop.csv')
     fig = px.bar(pitstop_data,x='name',y='milliseconds',
-                 labels=dict(name='Circuits',milliseconds='Average Pitstop Time (ms)'))
+                 labels=dict(name='Circuits',milliseconds='Average Pitstop Time (ms)'),text=pitstop_data['milliseconds']/1000)
     fig.update_traces(marker=dict(color= '#646cff'))
     fig.update_xaxes(showticklabels=False)
+    fig.update_traces(texttemplate='%{text:.1f}', textposition='inside')
     graph = fig.to_html(full_html=False)
     context = {'graph': graph}
     return render(request,'pitstop_analysis.html',context)
