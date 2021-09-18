@@ -15,7 +15,7 @@ def pitstop_analysis(request):
                  labels=dict(name='Circuits',milliseconds='Average Pitstop Time (ms)'),text=pitstop_data['milliseconds']/1000)
     fig.update_traces(marker=dict(color= '#646cff'))
     fig.update_xaxes(showticklabels=False)
-    fig.update_traces(texttemplate='%{text:.1f}', textposition='inside')
+    fig.update_traces(texttemplate='%{text:.2f}', textposition='inside', textfont_size=14)
     graph = fig.to_html(full_html=False)
     context = {'graph': graph}
     return render(request,'pitstop_analysis.html',context)
