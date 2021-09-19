@@ -17,7 +17,8 @@ def pitstop_analysis(request):
     fig.update_xaxes(showticklabels=False)
     fig.update_traces(texttemplate='%{text:.2f}', textposition='inside', textfont_size=14)
     graph = fig.to_html(full_html=False)
-    context = {'graph': graph}
+    data = pitstop_data.to_html(classes='styled-table',index=False)
+    context = {'graph': graph,'data':data}
     return render(request,'pitstop_analysis.html',context)
 
 def circuit_analysis(request):
