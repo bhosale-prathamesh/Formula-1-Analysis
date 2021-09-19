@@ -17,6 +17,10 @@ def pitstop_analysis(request):
     fig.update_xaxes(showticklabels=False)
     fig.update_traces(texttemplate='%{text:.2f}', textposition='inside', textfont_size=14)
     graph = fig.to_html(full_html=False)
+    pitstop_data = pitstop_data[['name','milliseconds']]
+    pitstop_data['milliseconds'] = pitstop_data['milliseconds']/1000
+    
+    pitstop_data.columns = ['Circuit Name','Pitstop Length']
     data = pitstop_data.to_html(classes='styled-table',index=False)
     context = {'graph': graph,'data':data}
     return render(request,'pitstop_analysis.html',context)
