@@ -106,7 +106,8 @@ def season_graph(year,type):
                              'constructor_name':'Constructor',
                              'wins':'Wins'},inplace=True) 
         fig1 = px.bar(data_d, x="code", y="points", color='constructorRef',
-        animation_frame="name", animation_group="code", range_y=[0,400])
+        animation_frame="name", animation_group="code", range_y=[0,400],text="points")
+        fig1.update_traces(textposition='inside', textfont_size=14)
         graph1 = fig1.to_html(full_html=False,auto_play=False)
 
         fig2 = go.Figure()
