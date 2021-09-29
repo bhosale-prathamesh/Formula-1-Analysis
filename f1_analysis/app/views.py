@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from numpy.core.fromnumeric import _alen_dispathcer, _all_dispatcher
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -11,10 +12,12 @@ def home(request):
 
 def pitstop_analysis(request):
     pitstop_data = pd.read_csv('Data\Average_Pitstop.csv')
+    pitstop_data.sort_values('milliseconds',ascending=False,inplace=True)
+    #pitstop_data.to_csv('Data\Average_pitstop.csv')
     fig = px.bar(pitstop_data,x='name',y='milliseconds',
                  labels=dict(name='Circuits',milliseconds='Average Pitstop Time (ms)'),text=pitstop_data['milliseconds']/1000,
                  color='milliseconds',color_continuous_scale=px.colors.sequential.Viridis)
-    #fig.update_traces(marker=dict(color=y,colorscale='Virdis'))
+    #fig.update_traces(marker=dict(opacity=0.8))
     fig.update_xaxes(showticklabels=False)
     fig.update_traces(texttemplate='%{text:.2f}', textposition='inside', textfont_size=14)
     graph = fig.to_html(full_html=False)
